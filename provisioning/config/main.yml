@@ -1,0 +1,43 @@
+---
+workspace: /root
+hostname: platformsh.dev
+ntp_timezone: America/Chicago
+
+# Project environment
+mysql_databases:
+  - { name: default }
+apache_vhosts:
+  - {servername: "project.platformsh.dev", documentroot: "/var/platformsh/www"}
+
+# PHP
+php_apc_shm_size: "196M"
+php_apc_enable_cli: "1"
+
+# Xdebug
+php_xdebug_remote_connect_back: "0"
+php_xdebug_remote_host: "10.0.2.2"
+php_xdebug_remote_enable: "1"
+php_xdebug_idekey: "platformsh"
+php_xdebug_max_nesting_level: "256"
+
+# MySQL
+mysql_root_password: root
+
+mysql_key_buffer_size: "512M"
+mysql_max_allowed_packet: "64M"
+mysql_table_open_cache: "256"
+mysql_sort_buffer_size: "1M"
+mysql_read_buffer_size: "1M"
+mysql_read_rnd_buffer_size: "4M"
+mysql_myisam_sort_buffer_size: "64M"
+mysql_thread_cache_size: "8"
+mysql_query_cache_size: "64M"
+
+mysql_innodb_file_per_table: "1"
+mysql_innodb_buffer_pool_size: "512M"
+mysql_innodb_additional_mem_pool_size: "20M"
+# Set .._log_file_size to 25% of buffer pool size.
+mysql_innodb_log_file_size: "64M"
+mysql_innodb_log_buffer_size: "8M"
+mysql_innodb_flush_log_at_trx_commit: "1"
+mysql_innodb_lock_wait_timeout: 50

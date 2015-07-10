@@ -1,0 +1,16 @@
+geerlingguy.apache
+geerlingguy.composer
+geerlingguy.drupal-console
+geerlingguy.drush
+geerlingguy.firewall
+geerlingguy.memcached
+geerlingguy.mysql
+geerlingguy.ntp
+geerlingguy.php
+geerlingguy.php-memcached
+geerlingguy.php-mysql
+geerlingguy.php-pecl
+geerlingguy.php-xdebug
+geerlingguy.php-xhprof
+geerlingguy.redis
+geerlingguy.varnish

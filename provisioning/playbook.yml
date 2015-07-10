@@ -1,0 +1,28 @@
+---
+- hosts: platformsh
+  gather_facts: yes
+
+  vars_files:
+    - config/main.yml
+
+  pre_tasks:
+    - name: Ensure apt is up to date.
+      apt: update_cache=yes cache_valid_time=3600
+
+  roles:
+    - geerlingguy.apache
+    - geerlingguy.composer
+    - geerlingguy.drupal-console
+    - geerlingguy.drush
+    - geerlingguy.firewall
+    - geerlingguy.memcached
+    - geerlingguy.mysql
+    - geerlingguy.ntp
+    - geerlingguy.php
+    - geerlingguy.php-memcached
+    - geerlingguy.php-mysql
+    - geerlingguy.php-pecl
+    - geerlingguy.php-xdebug
+    - geerlingguy.php-xhprof
+    - geerlingguy.redis
+    - geerlingguy.varnish
