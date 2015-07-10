@@ -9,9 +9,13 @@ mysql_databases:
 apache_vhosts:
   - {servername: "project.platformsh.dev", documentroot: "/var/platformsh/www"}
 
+# Composer
+composer_home_path: /home/vagrant/.composer
 composer_global_packages:
-  - { name: phpunit/phpunit, release: "@stable" }
   - { name: platformsh/cli, release: "@stable" }
+
+# Drush
+drush_version: 7.0.0
 
 # PHP
 php_apc_shm_size: "196M"

@@ -1,7 +1,8 @@
 ---
 platformsh:
-  project_name: 'project'
+  project_name: ''
   project_id: ''
+  project_environment: 'master'
 vagrantfile:
   vm:
     hostname_base: 'platformsh.dev'
