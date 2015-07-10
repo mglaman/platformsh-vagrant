@@ -1,0 +1,11 @@
+---
+platformsh:
+  project_name: 'project'
+  project_id: ''
+vagrantfile:
+  vm:
+    hostname_base: 'platformsh.dev'
+    memory: '2048'
+    cpus: '2'
+    network:
+      private_network: 10.22.22.100

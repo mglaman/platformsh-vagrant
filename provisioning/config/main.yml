@@ -9,6 +9,10 @@ mysql_databases:
 apache_vhosts:
   - {servername: "project.platformsh.dev", documentroot: "/var/platformsh/www"}
 
+composer_global_packages:
+  - { name: phpunit/phpunit, release: "@stable" }
+  - { name: platformsh/cli, release: "@stable" }
+
 # PHP
 php_apc_shm_size: "196M"
 php_apc_enable_cli: "1"
