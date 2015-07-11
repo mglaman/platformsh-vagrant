@@ -1,0 +1,28 @@
+{
+  "name": "platformsh/vagrant",
+  "description": "Platform.sh Vagrant integration",
+  "license": "MIT",
+  "require": {
+    "symfony/config": "2.7.*",
+    "symfony/console": "2.7.*",
+    "symfony/yaml": "2.7.*",
+    "symfony/process": "2.7.*"
+  },
+  "suggest": {
+    "platformsh/cli": "Required (globally) to run",
+    "drush/drush": "For Drupal projects"
+  },
+  "autoload": {
+    "psr-4": {
+      "Platformsh\\Vagrant\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Matt Glaman"
+    }
+  ],
+  "bin": [
+    "platform-vagrant"
+  ]
+}

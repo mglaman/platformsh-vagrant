@@ -1,3 +1,5 @@
+.idea
 .vagrant
 project
+vendor
 config.yml

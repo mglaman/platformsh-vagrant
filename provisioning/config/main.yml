@@ -2,17 +2,18 @@
 workspace: /root
 hostname: platformsh.dev
 ntp_timezone: America/Chicago
+project_name: 'project'
+hostname_base: 'platformsh.dev'
 
 # Project environment
 mysql_databases:
   - { name: default }
 apache_vhosts:
-  - {servername: "project.platformsh.dev", documentroot: "/var/platformsh/www"}
+  - {servername: "{{ project_name }}.{{ hostname_base }}", documentroot: "/var/platformsh/www"}
 
 # Composer
 composer_home_path: /home/vagrant/.composer
-composer_global_packages:
-  - { name: platformsh/cli, release: "@stable" }
+composer_global_packages: []
 
 # Drush
 drush_version: 7.0.0

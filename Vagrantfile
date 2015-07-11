@@ -42,6 +42,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Ansible provisioner.
   config.vm.provision "shell",
-    inline: "PYTHONUNBUFFERED=1 ANSIBLE_FORCE_COLOR=true ansible-playbook /vagrant/provisioning/playbook.yml -i /vagrant/provisioning/inventory --connection=local --sudo",
+    inline: "PYTHONUNBUFFERED=1 ANSIBLE_FORCE_COLOR=true ansible-playbook /vagrant/provisioning/playbook.yml -i /vagrant/provisioning/inventory --connection=local --sudo --extra-vars 'project_name=#{platform['project_name']} hostname_base=#{data['vm']['hostname_base']}'",
     keep_color: true
 end

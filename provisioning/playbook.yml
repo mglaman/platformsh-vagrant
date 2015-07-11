@@ -13,8 +13,6 @@
     - geerlingguy.firewall
     - geerlingguy.git
     - geerlingguy.ntp
-    - geerlingguy.composer
-    - platformsh.project
     - geerlingguy.apache
     - geerlingguy.mysql
     - geerlingguy.memcached
@@ -26,5 +24,6 @@
     - geerlingguy.php-pecl
     - geerlingguy.php-xdebug
     - geerlingguy.php-xhprof
+    - geerlingguy.composer
     - geerlingguy.drush
     # - geerlingguy.drupal-console
