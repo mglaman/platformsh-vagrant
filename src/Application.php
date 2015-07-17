@@ -36,6 +36,7 @@ class Application extends ParentApplication
         }
 
         $commands[] = new Command\SetupCommand();
+        $commands[] = new Command\RebootCommand();
 
         return $commands;
     }

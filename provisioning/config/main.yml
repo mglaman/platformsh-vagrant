@@ -9,7 +9,7 @@ hostname_base: 'platformsh.dev'
 mysql_databases:
   - { name: default }
 apache_vhosts:
-  - {servername: "{{ project_name }}.{{ hostname_base }}", documentroot: "/var/platformsh/www"}
+  - {servername: "{{ project_name }}.{{ hostname_base }}", documentroot: "/var/www/platformsh/www"}
 
 # Composer
 composer_home_path: /home/vagrant/.composer
@@ -17,6 +17,7 @@ composer_global_packages: []
 
 # Drush
 drush_version: 7.0.0
+drush_keep_updated: yes
 
 # PHP
 php_apc_shm_size: "196M"

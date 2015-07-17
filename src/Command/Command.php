@@ -30,4 +30,24 @@ abstract class Command extends BaseCommand {
         self::$interactive = $input->isInteractive();
     }
 
+    /**
+     * @param \Symfony\Component\Process\Process $process
+     */
+    protected function runProcess(Process $process) {
+        $process->setTimeout(null);
+        $process->setIdleTimeout(60);
+        try {
+            $process->mustRun(function ($type, $buffer) {
+                if (Process::ERR === $type) {
+                    $this->stdErr->writeln("<error>err =></error> " . $buffer);
+                } else {
+                    $this->stdErr->writeln("<info>out =></info> " . $buffer);
+                }
+            });
+        } catch (ProcessFailedException $e) {
+            $process->signal(SIGKILL);
+            echo $e->getMessage();
+            exit(1);
+        }
+    }
 }

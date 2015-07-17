@@ -30,7 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # We disable the synced folder on first boot, so we can put the platform project in the proper folder, and then share it.
-  config.vm.synced_folder "./project", "/var/platformsh", id: "project", type: "nfs"
+  config.vm.synced_folder "project", "/var/www/platformsh", id: "project", type: "nfs"
 
   config.vm.provision "shell",
     path: "provisioning/ansible-install.sh",
