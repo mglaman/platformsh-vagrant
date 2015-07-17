@@ -5,7 +5,6 @@ namespace Platformsh\Vagrant\Command;
 use Platformsh\Vagrant\Config\ProjectConfig;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 /**

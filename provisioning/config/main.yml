@@ -8,8 +8,16 @@ hostname_base: 'platformsh.dev'
 # Project environment
 mysql_databases:
   - { name: default }
-apache_vhosts:
-  - {servername: "{{ project_name }}.{{ hostname_base }}", documentroot: "/var/www/platformsh/www"}
+nginx_vhosts:
+  - {
+    listen: "80 default_server",
+    server_name: "{{ project_name }}.{{ hostname_base }}",
+    root: "/var/www/platformsh/www",
+    index: "index.php index.html"
+    }
+
+# nginx
+nginx_remove_default_vhost: true
 
 # Composer
 composer_home_path: /home/vagrant/.composer
@@ -22,6 +30,7 @@ drush_keep_updated: yes
 # PHP
 php_apc_shm_size: "196M"
 php_apc_enable_cli: "1"
+php_enable_webserver: false
 
 # Xdebug
 php_xdebug_remote_connect_back: "0"

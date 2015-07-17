@@ -6,6 +6,8 @@ use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 abstract class Command extends BaseCommand {
     /** @var OutputInterface|null */
@@ -35,7 +37,7 @@ abstract class Command extends BaseCommand {
      */
     protected function runProcess(Process $process) {
         $process->setTimeout(null);
-        $process->setIdleTimeout(60);
+        $process->setIdleTimeout(120);
         try {
             $process->mustRun(function ($type, $buffer) {
                 if (Process::ERR === $type) {

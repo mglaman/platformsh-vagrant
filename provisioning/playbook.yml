@@ -13,7 +13,7 @@
     - geerlingguy.firewall
     - geerlingguy.git
     - geerlingguy.ntp
-    - geerlingguy.apache
+    - geerlingguy.nginx
     - geerlingguy.mysql
     - geerlingguy.memcached
     - geerlingguy.redis
