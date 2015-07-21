@@ -37,6 +37,7 @@ class Application extends ParentApplication
 
         $commands[] = new Command\SetupCommand();
         $commands[] = new Command\RebootCommand();
+        $commands[] = new Command\SqlSyncCommand();
 
         return $commands;
     }

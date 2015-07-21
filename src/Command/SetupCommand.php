@@ -43,10 +43,7 @@ class SetupCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $platformsh = $this->config->get('platformsh');
-        if (!is_array($platformsh) || empty($platformsh)) {
-            throw new \Exception('Invalid config.yml');
-        }
+        $platformsh = $this->getProjectConfig();
 
         $projectId = $platformsh['project_id'];
         $projectName = $platformsh['project_name'];

@@ -2,6 +2,7 @@
 
 namespace Platformsh\Vagrant\Command;
 
+use Platformsh\Vagrant\Config\ProjectConfig;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -10,16 +11,25 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 abstract class Command extends BaseCommand {
+
     /** @var OutputInterface|null */
     protected $output;
+
     /** @var OutputInterface|null */
     protected $stdErr;
+
     /** @var bool */
     protected static $interactive = false;
+
+    /**
+     * @var \Platformsh\Vagrant\Config\ProjectConfig
+     */
+    protected $config;
 
     function __construct($name = null)
     {
         parent::__construct($name);
+        $this->config = new ProjectConfig();
     }
 
     /**
@@ -35,7 +45,8 @@ abstract class Command extends BaseCommand {
     /**
      * @param \Symfony\Component\Process\Process $process
      */
-    protected function runProcess(Process $process) {
+    protected function runProcess(Process $process)
+    {
         $process->setTimeout(null);
         $process->setIdleTimeout(120);
         try {
@@ -50,6 +61,29 @@ abstract class Command extends BaseCommand {
             $process->signal(SIGKILL);
             echo $e->getMessage();
             exit(1);
+        }
+    }
+
+
+    /**
+     * Returns Platform.sh project config information.
+     *
+     * @param null|string $key
+     *
+     * @return array|mixed|string
+     * @throws \Exception
+     */
+    protected function getProjectConfig($key = NULL)
+    {
+        $platformsh = $this->config->get('platformsh');
+        if (!is_array($platformsh) || empty($platformsh)) {
+            throw new \Exception('Invalid config.yml');
+        }
+
+        if ($key === NULL) {
+            return $platformsh;
+        } else {
+            return $platformsh[$key];
         }
     }
 }

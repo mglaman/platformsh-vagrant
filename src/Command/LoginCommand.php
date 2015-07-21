@@ -5,7 +5,6 @@ namespace Platformsh\Vagrant\Command;
 use Platformsh\Vagrant\Config\ProjectConfig;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 /**
@@ -14,11 +13,6 @@ use Symfony\Component\Process\Process;
  */
 class LoginCommand extends Command
 {
-
-  /**
-   * @var \Platformsh\Vagrant\Config\ProjectConfig
-   */
-  protected $config;
 
   /**
    * {@inheritdoc}
@@ -36,7 +30,6 @@ class LoginCommand extends Command
   function __construct()
   {
       parent::__construct('Login');
-      $this->config = new ProjectConfig();
   }
 
   /**
@@ -44,14 +37,9 @@ class LoginCommand extends Command
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
-    $platformsh = $this->config->get('platformsh');
-    if (!is_array($platformsh) || empty($platformsh)) {
-        throw new \Exception('Invalid config.yml');
-    }
-    $projectName = $platformsh['project_name'];
-
+    $projectName = $this->getProjectConfig('project_name');
     // @todo: get proper hostname from Vagrant config.
-    $process = new Process("vagrant -c ssh -c 'cd /var/www/platformsh/www && /usr/local/bin/drush uli --uri=$projectName.platformsh.dev' ");
+    $process = new Process("vagrant -c ssh -c '/usr/local/bin/drush uli --root=/var/www/platformsh/www --uri=$projectName.platformsh.dev' ");
     $this->runProcess($process);
   }
 }
