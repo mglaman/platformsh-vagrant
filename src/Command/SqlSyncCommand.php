@@ -53,7 +53,7 @@ class SqlSyncCommand extends Command
     $this->runProcess($process);
 
     // Import SQL
-    $process = new Process("vagrant -c ssh -c '/usr/local/bin/drush sqlc --root=/var/www/platformsh/www --uri=$projectName.platformsh.dev' < /vagrant/project/shared/$projectEnv-dump.sql");
+    $process = new Process("vagrant -c ssh -c '/usr/local/bin/drush sqlc < /vagrant/project/shared/$projectEnv-dump.sql --root=/var/www/platformsh/www --uri=$projectName.platformsh.dev'");
     $this->runProcess($process);
   }
 }
