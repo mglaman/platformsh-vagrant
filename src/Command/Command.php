@@ -48,7 +48,7 @@ abstract class Command extends BaseCommand {
     protected function runProcess(Process $process)
     {
         $process->setTimeout(null);
-        $process->setIdleTimeout(120);
+        $process->setIdleTimeout(null);
         try {
             $process->mustRun(function ($type, $buffer) {
                 if (Process::ERR === $type) {

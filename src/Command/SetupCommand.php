@@ -78,13 +78,16 @@ class SetupCommand extends Command
         if (!is_dir(CLI_ROOT . '/project')) {
             $platformCommand = "platform get $id project --environment $environment";
         } else {
-            // Do nothing for now.
-            // @todo: cd into the project folder and run platform project:build
-            return;
+            $platformCommand = "cd project && platform build";
         }
 
         $process = new Process($platformCommand);
         $this->runProcess($process);
+
+
+        // Generate the settings.local.php file with proper database information.
+        $settingsCode = "<?php\n\n// Database configuration.\n\$databases['default']['default'] = array(\n  'driver' => 'mysql',\n  'host' => 'localhost',\n  'username' => 'root',\n   'password' => 'root',\n  'database' => 'default',\n  'prefix' => '',\n);";
+        file_put_contents("project/shared/settings.local.php", $settingsCode);
     }
 
     /**
