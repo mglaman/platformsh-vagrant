@@ -33,6 +33,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "project", "/var/www/platformsh", id: "project", type: "nfs"
 
   config.vm.provision "shell",
+    path: "provisioning/ansible.sh"
+
+  config.vm.provision "shell",
     inline: "sudo ansible-galaxy install -f -r /vagrant/provisioning/requirements  > /dev/null 2>&1",
     keep_color: true
 

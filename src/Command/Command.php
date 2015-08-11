@@ -13,7 +13,7 @@ use Symfony\Component\Process\Process;
 abstract class Command extends BaseCommand {
 
     /** @var OutputInterface|null */
-    protected $output;
+    protected $stdOut;
 
     /** @var OutputInterface|null */
     protected $stdErr;
@@ -37,7 +37,7 @@ abstract class Command extends BaseCommand {
      */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->output = $output;
+        $this->stdOut = $output;
         $this->stdErr = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
         self::$interactive = $input->isInteractive();
     }

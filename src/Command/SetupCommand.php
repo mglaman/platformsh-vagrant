@@ -49,9 +49,9 @@ class SetupCommand extends Command
         $projectName = $platformsh['project_name'];
         $projectEnv = $platformsh['project_environment'];
 
-        $this->stdErr->writeln("Project Name: <info>$projectName</info>");
-        $this->stdErr->writeln("Project ID: <info>$projectId</info>");
-        $this->stdErr->writeln("Project Environment: <info>$projectEnv</info>\n");
+        $this->stdOut->writeln("Project Name: <info>$projectName</info>");
+        $this->stdOut->writeln("Project ID: <info>$projectId</info>");
+        $this->stdOut->writeln("Project Environment: <info>$projectEnv</info>\n");
 
         // Have the user verify the info.
         $dialog = $this->getHelper('dialog');
@@ -60,12 +60,13 @@ class SetupCommand extends Command
           'Is this information correct? <question>[Y,n]</question>',
           true
         )) {
-            $this->stdErr->writeln("<error>Environment build cancelled</error>");
+            $this->stdOut->writeln("<error>Environment build cancelled</error>");
             return;
         }
 
         $this->platformSetup($projectId, $projectEnv);
         $this->vagrantSetup();
+        $this->finalizeSetup();
     }
 
     /**
@@ -84,6 +85,9 @@ class SetupCommand extends Command
         $process = new Process($platformCommand);
         $this->runProcess($process);
 
+        $proces = new Process("cd project && project drush-aliases && drush cc drush");
+        $this->runProcess($process);
+
 
         // Generate the settings.local.php file with proper database information.
         $settingsCode = "<?php\n\n// Database configuration.\n\$databases['default']['default'] = array(\n  'driver' => 'mysql',\n  'host' => 'localhost',\n  'username' => 'root',\n   'password' => 'root',\n  'database' => 'default',\n  'prefix' => '',\n);";
@@ -95,10 +99,10 @@ class SetupCommand extends Command
      */
     protected function vagrantSetup() {
         if (is_file(CLI_ROOT . '/.vagrant/machines/platformsh/virtualbox/action_provision')) {
-            $this->stdErr->writeln("The virtual machine will <info>be rebuilt</info>");
+            $this->stdOut->writeln("The virtual machine will <info>be rebuilt</info>");
             $vagrantCommand = 'vagrant reload --provision';
         } else {
-            $this->stdErr->writeln("The virtual machine will <info>be created</info>");
+            $this->stdOut->writeln("The virtual machine will <info>be created</info>");
             $vagrantCommand = 'vagrant up';
         }
 
@@ -106,4 +110,14 @@ class SetupCommand extends Command
         $this->runProcess($process);
     }
 
+    /**
+     * Runs misc finishing touches.
+     */
+    protected function finalizeSetup() {
+      $this->stdOut->writeln("<info>Syncing environment databases.</info>");
+      $command = $this->getApplication()->find('sql-sync');
+      $args = array('');
+      $input = new ArrayInput($args);
+      $command->run($input, $this->stdOut);
+    }
 }
