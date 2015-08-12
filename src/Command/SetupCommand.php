@@ -85,9 +85,8 @@ class SetupCommand extends Command
         $process = new Process($platformCommand);
         $this->runProcess($process);
 
-        $process = new Process("cd project && project drush-aliases && drush cc drush");
+        $process = new Process("cd project && platform drush-aliases && drush cc drush > /dev/null 2>&1");
         $this->runProcess($process);
-
 
         // Generate the settings.local.php file with proper database information.
         $settingsCode = "<?php\n\n// Database configuration.\n\$databases['default']['default'] = array(\n  'driver' => 'mysql',\n  'host' => 'localhost',\n  'username' => 'root',\n   'password' => 'root',\n  'database' => 'default',\n  'prefix' => '',\n);";
