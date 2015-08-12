@@ -85,7 +85,7 @@ class SetupCommand extends Command
         $process = new Process($platformCommand);
         $this->runProcess($process);
 
-        $proces = new Process("cd project && project drush-aliases && drush cc drush");
+        $process = new Process("cd project && project drush-aliases && drush cc drush");
         $this->runProcess($process);
 
 
@@ -116,8 +116,6 @@ class SetupCommand extends Command
     protected function finalizeSetup() {
       $this->stdOut->writeln("<info>Syncing environment databases.</info>");
       $command = $this->getApplication()->find('sql-sync');
-      $args = array('');
-      $input = new ArrayInput($args);
-      $command->run($input, $this->stdOut);
+      $command->run($this->stdIn, $this->stdOut);
     }
 }

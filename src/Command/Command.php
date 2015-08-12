@@ -18,6 +18,9 @@ abstract class Command extends BaseCommand {
     /** @var OutputInterface|null */
     protected $stdErr;
 
+    /** @var  InputInterface|null */
+    protected $stdIn;
+
     /** @var bool */
     protected static $interactive = false;
 
@@ -39,6 +42,7 @@ abstract class Command extends BaseCommand {
     {
         $this->stdOut = $output;
         $this->stdErr = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+        $this->stdIn = $input;
         self::$interactive = $input->isInteractive();
     }
 
